@@ -120,6 +120,20 @@ class AVLTree {
         root = insert(root, newNode);
     }
     
+    public void display() 
+    {
+        display(root);
+    }
+
+    public void display(AVLNode node) 
+    {
+        if (node != null) {
+            display(node.left);
+            System.out.println("Admission Number: " + node.student.admission_no + ", Name: " + node.student.name);
+            display(node.right);
+        }
+    }
+    
     public void displayAVLTree() 
     {
         displayAVLTree(root, 0);
@@ -165,7 +179,8 @@ public class PDSA_CW {
             }   
         }
         
-        studentsTree.displayAVLTree();  
+        studentsTree.displayAVLTree(); 
+        studentsTree.display();
         
     }
     
