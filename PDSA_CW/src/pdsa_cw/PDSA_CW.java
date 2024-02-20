@@ -411,6 +411,58 @@ public void averageMarksForSubject(AVLNode node, String subject, int[] result) {
         averageMarksForSubject(node.right, subject, result);
     }
 }
+
+public void displayHighestMarksForStudent(int admission_no) 
+    {
+    Node student_node = search(admission_no);
+    if (student_node != null) {
+        SubjectNode current = student_node.subjects_head;
+        if (current != null) {
+            int highest_marks = Integer.MIN_VALUE;
+            String highest_subject = "";
+            while (current != null) {
+                if (current.marks > highest_marks) {
+                    highest_marks = current.marks;
+                    highest_subject = current.subject;
+                }
+                current = current.next;
+            }
+            System.out.println("Highest Marks for Student " + student_node.name + ": " + highest_marks + " in Subject " + highest_subject);
+        } else {
+            System.out.println("No subjects found for the student with admission number: " + admission_no);
+        }
+    } else {
+        System.out.println("Student with admission number " + admission_no + " not found.");
+    }
+}
+
+public void displayLowestMarksForStudent(int admission_no) 
+    {
+    Node student_node = search(admission_no);
+    if (student_node != null) {
+        SubjectNode current = student_node.subjects_head;
+        if (current != null) {
+            int lowest_marks = Integer.MAX_VALUE;
+            String lowest_subject = "";
+            while (current != null) {
+                if (current.marks < lowest_marks) {
+                    lowest_marks = current.marks;
+                    lowest_subject = current.subject;
+                }
+                current = current.next;
+            }
+            System.out.println("Lowest Marks for Student " + student_node.name + ": " + lowest_marks + " in Subject " + lowest_subject);
+        } 
+        else 
+        {
+            System.out.println("No subjects found for the student with admission number: " + admission_no);
+        }
+    } 
+    else 
+    {
+        System.out.println("Student with admission number " + admission_no + " not found.");
+    }
+}
     
     public void displayAVLTree() 
     {
@@ -904,6 +956,44 @@ public class PDSA_CW {
                     String average_marks_subject = subs[subject_avg_no - 1];
                     double avg_marks = studentsTree.averageMarksForSubject(average_marks_subject);
                     System.out.println("Average Marks for Subject '" + average_marks_subject + "': " + avg_marks);
+                    break;
+                    
+                    case 13:
+                    int highest_marks_admission_number = -1;
+                    while (highest_marks_admission_number < 0) {
+                        System.out.print("Enter Admission Number to display highest marks for student: ");
+                        if (scanner.hasNextInt()) {
+                            highest_marks_admission_number = scanner.nextInt();
+                            if (highest_marks_admission_number < 0) {
+                                System.out.println("Please enter a positive number for Admission Number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for Admission Number.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+
+                    studentsTree.displayHighestMarksForStudent(highest_marks_admission_number);
+                    break;
+                    
+                    case 14:
+                    int lowest_marks_admission_number = -1;
+                    while (lowest_marks_admission_number < 0) {
+                        System.out.print("Enter Admission Number to display lowest marks for student: ");
+                        if (scanner.hasNextInt()) {
+                            lowest_marks_admission_number = scanner.nextInt();
+                            if (lowest_marks_admission_number < 0) {
+                                System.out.println("Please enter a positive number for Admission Number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for Admission Number.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+
+                    studentsTree.displayLowestMarksForStudent(lowest_marks_admission_number);
                     break;
                     
                 case 21:
