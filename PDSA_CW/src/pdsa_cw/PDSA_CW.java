@@ -259,6 +259,45 @@ class AVLTree {
         return findStudent(node.left, admission_no) || findStudent(node.right, admission_no);
     }
     
+    public void update(int admission_no, String new_name) {
+        Node student = search(admission_no);
+        if (student != null) {
+            student.name = new_name;
+            System.out.println("Student with admission number " + admission_no + " updated successfully.");
+        } else {
+            System.out.println("Student with admission number " + admission_no + " not found.");
+        }
+    }
+
+    public void addMarks(int admission_no, String subject, int marks) {
+    Node student_node = search(admission_no);
+    if (student_node != null) {
+        // Check if the subject already exists for the student
+        SubjectNode current = student_node.subjects_head;
+        while (current != null) {
+            if (current.subject.equals(subject)) {
+                System.out.println("Subject '" + subject + "' already exists for student with admission number " + admission_no + ". Marks not added.");
+                System.out.println("");
+                return;
+            }
+            current = current.next;
+        }
+        // If the subject doesn't exist, add marks for it
+        SubjectNode new_subject_node = new SubjectNode(subject, marks);
+        if (student_node.subjects_head == null) {
+            student_node.subjects_head = student_node.subjects_tail = new_subject_node;
+        } else {
+            student_node.subjects_tail.next = new_subject_node;
+            new_subject_node.prev = student_node.subjects_tail;
+            student_node.subjects_tail = new_subject_node;
+        }
+        System.out.println("Marks added for admission number " + admission_no + ", Subject: " + subject + ", Mark: " + marks);
+        System.out.println("");
+    } else {
+        System.out.println("Student with admission number " + admission_no + " not found.");
+    }
+}
+    
     public void displayAVLTree() 
     {
         displayAVLTree(root, 0);
@@ -451,6 +490,116 @@ public class PDSA_CW {
                     }
                     scanner.nextLine(); // Consume newline
                     studentsTree.delete(delete_admission_no);
+                    break;
+                    
+                    case 5:
+                        int update_admission_no = -1;
+                        while (update_admission_no < 0) {
+                            System.out.print("Enter Admission Number to update: ");
+                            if (scanner.hasNextInt()) {
+                                update_admission_no = scanner.nextInt();
+                                if (update_admission_no < 0) {
+                                    System.out.println("Please enter a positive number.");
+                                }
+                            } else {
+                                System.out.println("Please enter a valid integer number.");
+                                scanner.next(); // Clear the invalid input
+                            }
+                        }
+                        scanner.nextLine(); // Consume newline
+
+                        // Validate new name input
+                        String new_name = "";
+                        boolean valid_new_name = false;
+                        while (!valid_new_name) {
+                            System.out.print("Enter New Name: ");
+                            new_name = scanner.nextLine();
+                            // Check if new name contains only letters and spaces
+                            if (new_name.matches("[a-zA-Z ]+")) {
+                                valid_new_name = true;
+                            } else {
+                                System.out.println("Please enter a valid name with no special characters or numbers.");
+                            }
+                        }
+
+                        studentsTree.update(update_admission_no, new_name);
+                        break;
+                        
+                    case 7:
+                    int student_admission_no = -1;
+                    while (student_admission_no < 0) {
+                        System.out.print("Enter Admission Number of the Student: ");
+                        if (scanner.hasNextInt()) {
+                            student_admission_no = scanner.nextInt();
+                            if (student_admission_no < 0) {
+                                System.out.println("Please enter a positive number for Admission Number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for Admission Number.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+
+                    Node student = studentsTree.search(student_admission_no);
+                    if (student != null) {
+                        System.out.print("How many subjects do you want to add marks: ");
+                        int c7 = -1;
+                        while (c7 < 0 || c7 > c) {
+                            if (scanner.hasNextInt()) {
+                                c7 = scanner.nextInt();
+                                if (c7 < 0) {
+                                    System.out.println("Please enter a positive number for the number of subjects.");
+                                } else if (c7 > c) {
+                                    System.out.println("There are only " + c + " subjects available.");
+                                }
+                            } else {
+                                System.out.println("Please enter a valid integer number for the number of subjects.");
+                                scanner.next(); // Clear the invalid input
+                            }
+                        }
+
+                        for (int k = 0; k < c7; k++) {
+                            System.out.println("Please Select relative no of the subject");
+                            System.out.println("No of subjects: " + c);
+                            for (int i = 0; i < c; i++) {
+                                System.out.println("Subject " + (i + 1) + " -> " + subs[i]);
+                            }
+
+                            int subject_no = -1;
+                            while (subject_no < 0 || subject_no > c) {
+                                System.out.print("Enter Subject No: ");
+                                if (scanner.hasNextInt()) {
+                                    subject_no = scanner.nextInt();
+                                    if (subject_no < 0 || subject_no > c) {
+                                        System.out.println("Please enter a valid subject number.");
+                                    }
+                                } else {
+                                    System.out.println("Please enter a valid integer number for Subject No.");
+                                    scanner.next(); // Clear the invalid input
+                                }
+                            }
+                            String subject = subs[subject_no - 1];
+                            System.out.println("Selected Subject: " + subject);
+
+                            int marks = -1;
+                            while (marks < 0 || marks > 100) {
+                                System.out.print("Enter Marks (0-100): ");
+                                if (scanner.hasNextInt()) {
+                                    marks = scanner.nextInt();
+                                    if (marks < 0 || marks > 100) {
+                                        System.out.println("Please enter a number between 0 and 100 for Marks.");
+                                    }
+                                } else {
+                                    System.out.println("Please enter a valid integer number for Marks.");
+                                    scanner.next(); // Clear the invalid input
+                                }
+                            }
+                            studentsTree.addMarks(student_admission_no, subject, marks);
+                        }
+                    } else {
+                        System.out.println("Student with admission number " + student_admission_no + " not found.");
+                    }
                     break;
                     
                 case 21:
