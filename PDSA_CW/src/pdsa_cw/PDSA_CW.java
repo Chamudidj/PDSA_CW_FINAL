@@ -316,6 +316,49 @@ class AVLTree {
         }
     }
     
+    public int sumMarks(int admission_no) {
+    Node student_node = search(admission_no);
+    if (student_node != null) {
+        SubjectNode current = student_node.subjects_head;
+        if (current != null) {
+            int sum = 0;
+            while (current != null) {
+                sum += current.marks;
+                current = current.next;
+            }
+            return sum;
+        } else {
+            System.out.println("No subjects found for the student with admission number: " + admission_no);
+        }
+    } else {
+        System.out.println("Student with admission number " + admission_no + " not found.");
+    }
+    return -1;
+}
+    
+    public double averageMarks(int admission_no) {
+    Node student_node = search(admission_no);
+    if (student_node != null) {
+        SubjectNode current = student_node.subjects_head;
+        if (current != null) {
+            int sum = sumMarks(admission_no);
+            if (sum != -1) {
+                int count = 0;
+                while (current != null) {
+                    count++;
+                    current = current.next;
+                }
+                return (double) sum / count;
+            }
+        } else {
+            System.out.println("No subjects found for the student with admission number: " + admission_no);
+        }
+    } else {
+        System.out.println("No student found with admission number: " + admission_no);
+    }
+    return -1.0;
+}
+    
     public void displayAVLTree() 
     {
         displayAVLTree(root, 0);
@@ -714,6 +757,50 @@ public class PDSA_CW {
                     }
 
                     studentsTree.updateMarks(stu_ad_no, subject, new_marks);
+                    break;
+                    
+                    case 9:
+                    int sum_admission_number = -1;
+                    while (sum_admission_number < 0) {
+                        System.out.print("Enter Admission Number to calculate sum marks: ");
+                        if (scanner.hasNextInt()) {
+                            sum_admission_number = scanner.nextInt();
+                            if (sum_admission_number < 0) {
+                                System.out.println("Please enter a positive number for Admission Number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for Admission Number.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+
+                    int sum = studentsTree.sumMarks(sum_admission_number);
+                    if (sum != -1) {
+                        System.out.println("Sum of Marks: " + sum);
+                    }
+                    break;
+                    
+                    case 10:
+                    int avg_admission_number = -1;
+                    while (avg_admission_number < 0) {
+                        System.out.print("Enter Admission Number to calculate average marks: ");
+                        if (scanner.hasNextInt()) {
+                            avg_admission_number = scanner.nextInt();
+                            if (avg_admission_number < 0) {
+                                System.out.println("Please enter a positive number for Admission Number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for Admission Number.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+
+                    double average = studentsTree.averageMarks(avg_admission_number);
+                    if (average != -1.0) {
+                        System.out.println("Average Marks: " + average);
+                    }
                     break;
                     
                 case 21:
