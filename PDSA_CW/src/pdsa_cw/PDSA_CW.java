@@ -185,6 +185,80 @@ class AVLTree {
         return current;
     }
     
+    public AVLNode deleteNode(AVLNode root, int admission_no) {
+        if (root == null)
+            return root;
+
+        if (admission_no < root.student.admission_no)
+            root.left = deleteNode(root.left, admission_no);
+        else if (admission_no > root.student.admission_no)
+            root.right = deleteNode(root.right, admission_no);
+        else {
+            if (root.left == null || root.right == null) {
+                AVLNode temp = null;
+                if (root.left == null)
+                    temp = root.right;
+                else
+                    temp = root.left;
+
+                if (temp == null) {
+                    temp = root;
+                    root = null;
+                } else
+                    root = temp;
+            } else {
+                AVLNode temp = minValueNode(root.right);
+                root.student = temp.student;
+                root.right = deleteNode(root.right, temp.student.admission_no);
+            }
+        }
+
+        if (root == null)
+            return root;
+
+        root.height = Math.max(height(root.left), height(root.right)) + 1;
+
+        int balance = getBalance(root);
+
+        if (balance > 1 && getBalance(root.left) >= 0)
+            return rightRotate(root);
+
+        if (balance > 1 && getBalance(root.left) < 0) {
+            root.left = leftRotate(root.left);
+            return rightRotate(root);
+        }
+
+        if (balance < -1 && getBalance(root.right) <= 0)
+            return leftRotate(root);
+
+        if (balance < -1 && getBalance(root.right) > 0) {
+            root.right = rightRotate(root.right);
+            return leftRotate(root);
+        }
+
+        return root;
+}
+    public void delete(int admission_no) {
+        boolean deleted = findStudent(root, admission_no); // Check if student exists before deletion
+        root = deleteNode(root, admission_no);
+        boolean foundAfterDelete = findStudent(root, admission_no); // Check if student exists after deletion
+        if (deleted && !foundAfterDelete) {
+            System.out.println("Student with admission number " + admission_no + " has been successfully deleted.");
+        } else {
+            System.out.println("No student found with admission number " + admission_no + ". Nothing to delete.");
+        }
+    }
+
+    private boolean findStudent(AVLNode node, int admission_no) {
+        if (node == null) {
+            return false;
+        }
+        if (node.student.admission_no == admission_no) {
+            return true;
+        }
+        return findStudent(node.left, admission_no) || findStudent(node.right, admission_no);
+    }
+    
     public void displayAVLTree() 
     {
         displayAVLTree(root, 0);
@@ -336,7 +410,7 @@ public class PDSA_CW {
                     studentsTree.display();
                     break;
                     
-                    case 3:
+                case 3:
                     int search_admission_number = -1;
                     while (search_admission_number < 0) {
                         System.out.print("Enter Admission Number to search: ");
@@ -359,6 +433,24 @@ public class PDSA_CW {
                     } else {
                         System.out.println("Student with admission number " + search_admission_number + " not found.");
                     }
+                    break;
+                    
+                case 4:
+                    int delete_admission_no = -1;
+                    while (delete_admission_no < 0) {
+                        System.out.print("Enter Admission Number to delete: ");
+                        if (scanner.hasNextInt()) {
+                            delete_admission_no = scanner.nextInt();
+                            if (delete_admission_no < 0) {
+                                System.out.println("Please enter a positive number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+                    studentsTree.delete(delete_admission_no);
                     break;
                     
                 case 21:
