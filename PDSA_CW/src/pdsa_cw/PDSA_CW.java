@@ -298,6 +298,24 @@ class AVLTree {
     }
 }
     
+    public void updateMarks(int admission_no, String subject, int new_marks) {
+        Node student_node = search(admission_no);
+        if (student_node != null) {
+            SubjectNode current = student_node.subjects_head;
+            while (current != null) {
+                if (current.subject.equals(subject)) {
+                    current.marks = new_marks;
+                    System.out.println("Marks updated for admission number " + admission_no + ", Subject: " + subject + ", New Mark: " + new_marks);
+                    return;
+                }
+                current = current.next;
+            }
+            System.out.println("Subject '" + subject + "' not found for student with admission number " + admission_no + ". Marks not updated.");
+        } else {
+            System.out.println("Student with admission number " + admission_no + " not found.");
+        }
+    }
+    
     public void displayAVLTree() 
     {
         displayAVLTree(root, 0);
@@ -525,6 +543,50 @@ public class PDSA_CW {
                         studentsTree.update(update_admission_no, new_name);
                         break;
                         
+                case 6:
+                        System.out.println("Subjects Available Already: ");
+
+                        int count = 0;
+                        for (int i = 0; i < n; i++) {
+                            if (subs[i] != null) {
+                                System.out.println("Subject " + (i + 1) + " -> " + subs[i]);
+                                count++;
+                            } else {
+                                while (true) {
+                                    System.out.println();
+                                    System.out.print("How many new subjects do you want to add: ");
+                                    int c6 = -1;
+                                    while (c6 < 0) {
+                                        if (scanner.hasNextInt()) {
+                                            c6 = scanner.nextInt();
+                                            if (c6 < 0) {
+                                                System.out.println("Please enter a positive number.");
+                                            }
+                                        } else {
+                                            System.out.println("Please enter a valid integer number.");
+                                            scanner.next(); // Clear the invalid input
+                                        }
+                                    }
+
+                                    for (int k = 0; k < c6; k++) {
+                                        System.out.print("New Subject Name: ");
+                                        subs[count] = scanner.next();
+                                        System.out.println(subs[count] + " Added Successfully to the System.\n");
+                                        count++;
+                                    }
+
+                                    System.out.println();
+                                    for (int j = 0; j < count; j++) {
+                                        System.out.println("Subject " + (j + 1) + " -> " + subs[j]);
+                                    }
+                                    c = c - c + (count);
+                                    break;
+                                }
+                                break;
+                            }
+                        }
+                        break;        
+                        
                     case 7:
                     int student_admission_no = -1;
                     while (student_admission_no < 0) {
@@ -600,6 +662,58 @@ public class PDSA_CW {
                     } else {
                         System.out.println("Student with admission number " + student_admission_no + " not found.");
                     }
+                    break;
+                    
+                    case 8:
+                    int stu_ad_no = -1;
+                    while (stu_ad_no < 0) {
+                        System.out.print("Enter Admission Number of the Student: ");
+                        if (scanner.hasNextInt()) {
+                            stu_ad_no = scanner.nextInt();
+                            if (stu_ad_no < 0) {
+                                System.out.println("Please enter a positive number for Admission Number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for Admission Number.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+
+                    System.out.println("Enter Subject no: ");
+                    for (int i = 0; i < c; i++) {
+                        System.out.println("Subject " + (i + 1) + " -> " + subs[i]);
+                    }
+                    int subject_num = -1;
+                    while (subject_num < 0 || subject_num > c) {
+                        System.out.print("Enter Subject No: ");
+                        if (scanner.hasNextInt()) {
+                            subject_num = scanner.nextInt();
+                            if (subject_num < 0 || subject_num > c) {
+                                System.out.println("Please enter a valid subject number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for Subject No.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    String subject = subs[subject_num - 1];
+
+                    int new_marks = -1;
+                    while (new_marks < 0 || new_marks > 100) {
+                        System.out.print("Enter New Marks (0-100): ");
+                        if (scanner.hasNextInt()) {
+                            new_marks = scanner.nextInt();
+                            if (new_marks < 0 || new_marks > 100) {
+                                System.out.println("Please enter a number between 0 and 100 for New Marks.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for New Marks.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+
+                    studentsTree.updateMarks(stu_ad_no, subject, new_marks);
                     break;
                     
                 case 21:
