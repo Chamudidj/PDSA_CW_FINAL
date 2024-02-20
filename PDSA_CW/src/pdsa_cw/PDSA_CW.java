@@ -463,6 +463,66 @@ public void displayLowestMarksForStudent(int admission_no)
         System.out.println("Student with admission number " + admission_no + " not found.");
     }
 }
+
+public void displayHighestMarksForSubject(String subject) {
+    String[] result = new String[2]; // Index 0 for student name, Index 1 for highest marks
+    result[1] = String.valueOf(Integer.MIN_VALUE); // Initialize to minimum value
+    displayHighestMarksForSubject(root, subject, result);
+    String student_name = result[0];
+    int highest_marks = Integer.parseInt(result[1]);
+    if (!student_name.isEmpty()) {
+        System.out.println("Highest Marks for Subject " + subject + ": " + highest_marks + " by Student " + student_name);
+    } else {
+        System.out.println("No student found for subject " + subject);
+    }
+}
+
+public void displayHighestMarksForSubject(AVLNode node, String subject, String[] result) {
+    if (node != null) {
+        if (node.student.subjects_head != null) {
+            SubjectNode current_subject = node.student.subjects_head;
+            while (current_subject != null) {
+                if (current_subject.subject.equals(subject) && current_subject.marks > Integer.parseInt(result[1])) {
+                    result[1] = String.valueOf(current_subject.marks);
+                    result[0] = node.student.name;
+                }
+                current_subject = current_subject.next;
+            }
+        }
+        displayHighestMarksForSubject(node.left, subject, result);
+        displayHighestMarksForSubject(node.right, subject, result);
+    }
+}
+
+public void displayLowestMarksForSubject(String subject) {
+    String[] result = new String[2]; // Index 0 for student name, Index 1 for lowest marks
+    result[1] = String.valueOf(Integer.MAX_VALUE); // Initialize to maximum value
+    displayLowestMarksForSubject(root, subject, result);
+    String student_name = result[0];
+    int lowest_marks = Integer.parseInt(result[1]);
+    if (!student_name.isEmpty()) {
+        System.out.println("Lowest Marks for Subject " + subject + ": " + lowest_marks + " by Student " + student_name);
+    } else {
+        System.out.println("No student found for subject " + subject);
+    }
+}
+
+public void displayLowestMarksForSubject(AVLNode node, String subject, String[] result) {
+    if (node != null) {
+        if (node.student.subjects_head != null) {
+            SubjectNode current_subject = node.student.subjects_head;
+            while (current_subject != null) {
+                if (current_subject.subject.equals(subject) && current_subject.marks < Integer.parseInt(result[1])) {
+                    result[1] = String.valueOf(current_subject.marks);
+                    result[0] = node.student.name;
+                }
+                current_subject = current_subject.next;
+            }
+        }
+        displayLowestMarksForSubject(node.left, subject, result);
+        displayLowestMarksForSubject(node.right, subject, result);
+    }
+}
     
     public void displayAVLTree() 
     {
@@ -994,6 +1054,54 @@ public class PDSA_CW {
                     scanner.nextLine(); // Consume newline
 
                     studentsTree.displayLowestMarksForStudent(lowest_marks_admission_number);
+                    break;
+                    
+                case 15:
+                    int highest_marks_subject_no = -1;
+                    while (highest_marks_subject_no < 0 || highest_marks_subject_no > c) {
+                        System.out.println("Enter Subject no to display highest marks: ");
+                        for (int i = 0; i < c; i++) {
+                            System.out.println("Subject " + (i + 1) + " -> " + subs[i]);
+                        }
+                        System.out.print("Enter Subject No: ");
+                        if (scanner.hasNextInt()) {
+                            highest_marks_subject_no = scanner.nextInt();
+                            if (highest_marks_subject_no < 0 || highest_marks_subject_no > c) {
+                                System.out.println("Please enter a valid subject number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for Subject No.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+
+                    String highest_marks_subject = subs[highest_marks_subject_no - 1];
+                    studentsTree.displayHighestMarksForSubject(highest_marks_subject);
+                    break;
+                    
+                case 16:
+                    int lowest_marks_subject_no = -1;
+                    while (lowest_marks_subject_no < 0 || lowest_marks_subject_no > c) {
+                        System.out.println("Enter Subject no to display lowest marks: ");
+                        for (int i = 0; i < c; i++) {
+                            System.out.println("Subject " + (i + 1) + " -> " + subs[i]);
+                        }
+                        System.out.print("Enter Subject No: ");
+                        if (scanner.hasNextInt()) {
+                            lowest_marks_subject_no = scanner.nextInt();
+                            if (lowest_marks_subject_no < 0 || lowest_marks_subject_no > c) {
+                                System.out.println("Please enter a valid subject number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for Subject No.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+
+                    String lowest_marks_subject = subs[lowest_marks_subject_no - 1];
+                    studentsTree.displayLowestMarksForSubject(lowest_marks_subject);
                     break;
                     
                 case 21:
