@@ -359,6 +359,59 @@ class AVLTree {
     return -1.0;
 }
     
+    public int total_marksForSubject(String subject) {
+        return total_marksForSubject(root, subject);
+    }
+
+    public int total_marksForSubject(AVLNode node, String subject) {
+        if (node == null)
+            return 0;
+
+        int total_marks = 0;
+        if (node.student.subjects_head != null) {
+            SubjectNode current_subject = node.student.subjects_head;
+            while (current_subject != null) {
+                if (current_subject.subject.equals(subject)) {
+                    total_marks += current_subject.marks;
+                }
+                current_subject = current_subject.next;
+            }
+        }
+
+        total_marks += total_marksForSubject(node.left, subject);
+        total_marks += total_marksForSubject(node.right, subject);
+
+        return total_marks;
+    }
+    
+    public double averageMarksForSubject(String subject) {
+    int[] result = new int[2]; // Index 0 for total marks, Index 1 for total students
+    averageMarksForSubject(root, subject, result);
+    int total_marks = result[0];
+    int total_students = result[1];
+    System.out.println("total " + total_marks);
+    System.out.println("students " + total_students);
+    return total_students == 0 ? 0.0 : ((double) total_marks / total_students);
+}
+
+public void averageMarksForSubject(AVLNode node, String subject, int[] result) {
+    if (node != null) {
+        if (node.student.subjects_head != null) {
+            SubjectNode current_subject = node.student.subjects_head;
+            while (current_subject != null) {
+                if (current_subject.subject.equals(subject)) {
+                    result[0] += current_subject.marks; // Accumulate total marks
+                    result[1]++; // Increment total students
+                }
+                current_subject = current_subject.next;
+            }
+        }
+        // Recursively traverse left and right subtrees
+        averageMarksForSubject(node.left, subject, result);
+        averageMarksForSubject(node.right, subject, result);
+    }
+}
+    
     public void displayAVLTree() 
     {
         displayAVLTree(root, 0);
@@ -801,6 +854,56 @@ public class PDSA_CW {
                     if (average != -1.0) {
                         System.out.println("Average Marks: " + average);
                     }
+                    break;
+                    
+                case 11:
+                    int subject_total_no = -1;
+                    while (subject_total_no < 0 || subject_total_no > c) {
+                        System.out.println("Enter Subject no to calculate total marks: ");
+                        for (int i = 0; i < c; i++) {
+                            System.out.println("Subject " + (i + 1) + " -> " + subs[i]);
+                        }
+                        System.out.print("Enter Subject No: ");
+                        if (scanner.hasNextInt()) {
+                            subject_total_no = scanner.nextInt();
+                            if (subject_total_no < 0 || subject_total_no > c) {
+                                System.out.println("Please enter a valid subject number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for Subject No.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+
+                    String total_marks_subject = subs[subject_total_no - 1];
+                    int total_marks = studentsTree.total_marksForSubject(total_marks_subject);
+                    System.out.println("Total Marks for Subject '" + total_marks_subject + "': " + total_marks);
+                    break;
+                    
+                case 12:
+                    int subject_avg_no = -1;
+                    while (subject_avg_no < 0 || subject_avg_no > c) {
+                        System.out.println("Enter Subject no to calculate average marks: ");
+                        for (int i = 0; i < c; i++) {
+                            System.out.println("Subject " + (i + 1) + " -> " + subs[i]);
+                        }
+                        System.out.print("Enter Subject No: ");
+                        if (scanner.hasNextInt()) {
+                            subject_avg_no = scanner.nextInt();
+                            if (subject_avg_no < 0 || subject_avg_no > c) {
+                                System.out.println("Please enter a valid subject number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for Subject No.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+
+                    String average_marks_subject = subs[subject_avg_no - 1];
+                    double avg_marks = studentsTree.averageMarksForSubject(average_marks_subject);
+                    System.out.println("Average Marks for Subject '" + average_marks_subject + "': " + avg_marks);
                     break;
                     
                 case 21:
