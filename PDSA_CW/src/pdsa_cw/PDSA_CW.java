@@ -162,6 +162,29 @@ class AVLTree {
         }
     }
     
+    public Node search(int admission_no) {
+        return search(root, admission_no);
+    }
+
+    public Node search(AVLNode node, int admission_no) {
+        if (node == null || node.student.admission_no == admission_no)
+            return node != null ? node.student : null;
+
+        if (admission_no < node.student.admission_no)
+            return search(node.left, admission_no);
+        else
+            return search(node.right, admission_no);
+    }
+    
+    public AVLNode minValueNode(AVLNode node) {
+        AVLNode current = node;
+
+        while (current.left != null)
+            current = current.left;
+
+        return current;
+    }
+    
     public void displayAVLTree() 
     {
         displayAVLTree(root, 0);
@@ -311,6 +334,31 @@ public class PDSA_CW {
                     
                 case 2:
                     studentsTree.display();
+                    break;
+                    
+                    case 3:
+                    int search_admission_number = -1;
+                    while (search_admission_number < 0) {
+                        System.out.print("Enter Admission Number to search: ");
+                        if (scanner.hasNextInt()) {
+                            search_admission_number = scanner.nextInt();
+                            if (search_admission_number < 0) {
+                                System.out.println("Please enter a positive number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+                    Node searched_student = studentsTree.search(search_admission_number);
+                    if (searched_student != null) {
+                        System.out.println("Student Found:");
+                        System.out.println("Admission Number: " + searched_student.admission_no + ", Name: " + searched_student.name);
+                        studentsTree.displaySubjects(searched_student.subjects_head);
+                    } else {
+                        System.out.println("Student with admission number " + search_admission_number + " not found.");
+                    }
                     break;
                     
                 case 21:
