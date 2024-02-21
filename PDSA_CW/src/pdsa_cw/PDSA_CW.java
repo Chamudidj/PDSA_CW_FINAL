@@ -1268,6 +1268,11 @@ public class PDSA_CW {
                     studentsTree.displaySubjectDetails(subject_to_display);
                     break;
                     
+                    case 20:
+                    System.out.println("AVL Tree Diagram:");
+                    studentsTree.displayAVLTree();
+                    break;
+                    
                 case 21:
                     running = false;
                     System.out.println("....EXITING SCHOOL MANAGEMENT SYSTEM. GOODBYE!....");
