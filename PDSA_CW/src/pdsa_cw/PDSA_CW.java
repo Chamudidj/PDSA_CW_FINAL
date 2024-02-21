@@ -717,7 +717,7 @@ public class PDSA_CW {
             
             switch (choice) 
             {
-                case 1:
+                /*case 1:
                     System.out.println("How many new students do you want to add: ");
                     int c1 = -1;
                     while (c1 < 0) {
@@ -733,12 +733,12 @@ public class PDSA_CW {
                         }
                     }
                     for (int i = 0; i < c1; i++) {
-                        int admissionNumber = -1;
-                        while (admissionNumber < 0) {
+                        int admission_number = -1;
+                        while (admission_number < 0) {
                             System.out.print("Enter Admission Number: ");
                             if (scanner.hasNextInt()) {
-                                admissionNumber = scanner.nextInt();
-                                if (admissionNumber < 0) {
+                                admission_number = scanner.nextInt();
+                                if (admission_number < 0) {
                                     System.out.println("Please enter a positive number.");
                                 }
                             } else {
@@ -750,22 +750,83 @@ public class PDSA_CW {
 
                         // Validate name input
                         String name = "";
-                        boolean validName = false;
-                        while (!validName) {
+                        boolean valid_name = false;
+                        while (!valid_name) {
                             System.out.print("Enter Name: ");
                             name = scanner.nextLine();
                             // Check if name contains only letters and spaces
                             if (name.matches("[a-zA-Z ]+")) {
-                                validName = true;
+                                valid_name = true;
                             } else {
                                 System.out.println("Please enter a valid name with no special characters or numbers.");
                             }
                         }
 
-                        studentsTree.insert(admissionNumber, name);
+                        studentsTree.insert(admission_number, name);
                     }
-                    break;
-                    
+                    break;*/
+                
+                case 1:
+                        //System.out.println("How many new students do you want to add: ");
+                        int c1 = -1;
+                        boolean confirmed = false;
+                        while (!confirmed) {
+                            while (c1 < 0) {
+                                System.out.print("How many new students do you want to add(positive no): ");
+                                if (scanner.hasNextInt()) {
+                                    c1 = scanner.nextInt();
+                                    if (c1 < 0) {
+                                        System.out.println("Please enter a positive number.");
+                                    }
+                                } else {
+                                    System.out.println("Please enter a valid integer number.");
+                                    scanner.next(); // Clear the invalid input
+                                }
+                            }
+                            System.out.println("You want to add " + c1+" new students.");
+                            System.out.println("To confirm, enter '1'. To re-enter the number of students, enter '0'.");
+                            int confirmation = scanner.nextInt();
+                            if (confirmation == 1) {
+                                confirmed = true;
+                            } else if (confirmation == 0) {
+                                c1 = -1; // Reset c1 to re-enter the number of students
+                            } else {
+                                System.out.println("Invalid input. Please enter '1' to confirm or '0' to re-enter the number of students.");
+                            }
+                        }
+
+                        for (int i = 0; i < c1; i++) {
+                            int admission_number = -1;
+                            while (admission_number < 0) {
+                                System.out.print("Enter Admission Number: ");
+                                if (scanner.hasNextInt()) {
+                                    admission_number = scanner.nextInt();
+                                    if (admission_number < 0) {
+                                        System.out.println("Please enter a positive number.");
+                                    }
+                                } else {
+                                    System.out.println("Please enter a valid integer number.");
+                                    scanner.next(); // Clear the invalid input
+                                }
+                            }
+                            scanner.nextLine(); // Consume newline
+
+                            // Validate name input
+                            String name = "";
+                            boolean valid_name = false;
+                            while (!valid_name) {
+                                System.out.print("Enter Name: ");
+                                name = scanner.nextLine();
+                                // Check if name contains only letters and spaces
+                                if (name.matches("[a-zA-Z ]+")) {
+                                    valid_name = true;
+                                } else {
+                                    System.out.println("Please enter a valid name with no special characters or numbers.");
+                                }
+                            }
+
+                            studentsTree.insert(admission_number, name);
+            }
                 case 2:
                     studentsTree.display();
                     break;
