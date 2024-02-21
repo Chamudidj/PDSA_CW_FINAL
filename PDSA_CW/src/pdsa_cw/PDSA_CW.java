@@ -587,6 +587,37 @@ public boolean displaySubjectsAndMarks(AVLNode node)
     }
     return students_found;
 }
+
+public void displaySubjectDetails(String subject) 
+{
+    boolean found = displaySubjectDetails(root, subject);
+    if (!found) 
+    {
+        System.out.println("No students found for subject: " + subject);
+    }
+}
+
+public boolean displaySubjectDetails(AVLNode node, String subject) {
+    boolean found = false;
+    if (node != null) {
+        // Search in the left subtree
+        found |= displaySubjectDetails(node.left, subject);
+        
+        // Check the current node for the subject
+        SubjectNode current = node.student.subjects_head;
+        while (current != null) {
+            if (current.subject.equals(subject)) {
+                System.out.println("Student: " + node.student.name + ", Admission Number: " + node.student.admission_no + ", Marks: " + current.marks);
+                found = true;
+            }
+            current = current.next;
+        }
+        
+        // Search in the right subtree
+        found |= displaySubjectDetails(node.right, subject);
+    }
+    return found;
+}
     
     public void displayAVLTree() 
     {
@@ -1210,6 +1241,31 @@ public class PDSA_CW {
                     case 18:
                     System.out.println("All Subjects with Students and Marks:");
                     studentsTree.displaySubjectsAndMarks();
+                    break;
+                    
+                    case 19:
+                    int subject_no = -1;
+                    while (subject_no < 0 || subject_no > c) {
+                        System.out.println("Enter the subject number to display details:");
+                        for (int i = 0; i < c; i++) {
+                            System.out.println("Subject " + (i + 1) + " -> " + subs[i]);
+                        }
+                        System.out.print("Enter Subject No: ");
+                        if (scanner.hasNextInt()) {
+                            subject_no = scanner.nextInt();
+                            if (subject_no < 0 || subject_no > c) {
+                                System.out.println("Please enter a valid subject number between 1 and " + c + ".");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for Subject No.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+
+                    String subject_to_display = subs[subject_no - 1];
+                    System.out.println("Details of Subject '" + subject_to_display + "':");
+                    studentsTree.displaySubjectDetails(subject_to_display);
                     break;
                     
                 case 21:
