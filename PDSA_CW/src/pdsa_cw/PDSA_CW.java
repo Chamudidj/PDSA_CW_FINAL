@@ -1336,7 +1336,7 @@ public class PDSA_CW {
                     
                 case 21:
                     running = false;
-                    System.out.println("....EXITING SCHOOL MANAGEMENT SYSTEM. GOODBYE!....");
+                    System.out.println("....EXITING STUDENT MANAGEMENT SYSTEM. GOODBYE!....");
                     break;
                     
                 default:
