@@ -552,6 +552,41 @@ public void deleteSubjectForStudent(int admission_no, String subject)
         System.out.println("Student with admission number " + admission_no + " not found.");
     }
 }
+
+// Method to display all subjects with the students who study it along with marks
+public void displaySubjectsAndMarks() 
+{
+    boolean students_found = displaySubjectsAndMarks(root);
+    if (!students_found) 
+    {
+        System.out.println("No students found for any subject.");
+    }
+}
+
+public boolean displaySubjectsAndMarks(AVLNode node) 
+{
+    boolean students_found = false;
+    if (node != null) 
+    {
+        boolean left_students = displaySubjectsAndMarks(node.left);
+        boolean right_students = displaySubjectsAndMarks(node.right);
+        students_found = left_students || right_students || (node.student != null && node.student.subjects_head != null);
+        if (students_found) 
+        {
+            System.out.println("Student: " + node.student.name + ", Admission Number: " + node.student.admission_no);
+            if (node.student.subjects_head != null) 
+            {
+                displaySubjects(node.student.subjects_head);
+                System.out.println("");
+            } 
+            else 
+            {
+                System.out.println("No subjects for this student.");
+            }
+        }
+    }
+    return students_found;
+}
     
     public void displayAVLTree() 
     {
@@ -1170,6 +1205,11 @@ public class PDSA_CW {
 
                     String subject_to_delete = subs[subject_to_delete_no - 1];
                     studentsTree.deleteSubjectForStudent(stu_admission_no, subject_to_delete);
+                    break;
+                    
+                    case 18:
+                    System.out.println("All Subjects with Students and Marks:");
+                    studentsTree.displaySubjectsAndMarks();
                     break;
                     
                 case 21:
