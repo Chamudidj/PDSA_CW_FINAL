@@ -677,25 +677,25 @@ public class PDSA_CW {
         while (running) {
             System.out.println("");
             System.out.println("~~~~WELCOME TO STUDENT MANAGEMENT SYSTEM MENU~~~~");
-            System.out.println("[ 1 ]  Add A New Student");
+            System.out.println("[ 1 ]  Add a New Student");
             System.out.println("[ 2 ]  Display All Students");
-            System.out.println("[ 3 ]  Search A Student");
-            System.out.println("[ 4 ]  Delete A Student");
-            System.out.println("[ 5 ]  Update A Student");
-            System.out.println("[ 6 ]  Add A New Subject To The System");
-            System.out.println("[ 7 ]  Add Marks For Student To A Subject");
-            System.out.println("[ 8 ]  Update Mark Of A Student");
-            System.out.println("[ 9 ]  Calculate Total Marks For A Student");
-            System.out.println("[ 10 ]  Calculate Average Marks For A Student");
-            System.out.println("[ 11 ] Calculate Total Marks For A Subject");
-            System.out.println("[ 12 ] Calculate Average Marks For A Subject");
-            System.out.println("[ 13 ] Display Highest Marks Of A Student");
-            System.out.println("[ 14 ] Display Lowest Marks Of A Student");
-            System.out.println("[ 15 ] Display Highest Marks For A Subject");
-            System.out.println("[ 16 ] Display Lowest Marks For A Subject");
-            System.out.println("[ 17 ] Delete Subject Of A Student");
+            System.out.println("[ 3 ]  Search a Student");
+            System.out.println("[ 4 ]  Delete a Student");
+            System.out.println("[ 5 ]  Update a Student");
+            System.out.println("[ 6 ]  Add a New Subject To The System");
+            System.out.println("[ 7 ]  Add Marks For Student To a Subject");
+            System.out.println("[ 8 ]  Update Mark Of a Student");
+            System.out.println("[ 9 ]  Calculate Total Marks For a Student");
+            System.out.println("[ 10 ] Calculate Average Marks For a Student");
+            System.out.println("[ 11 ] Calculate Total Marks For a Subject");
+            System.out.println("[ 12 ] Calculate Average Marks For a Subject");
+            System.out.println("[ 13 ] Display Highest Marks Of a Student");
+            System.out.println("[ 14 ] Display Lowest Marks Of a Student");
+            System.out.println("[ 15 ] Display Highest Marks For a Subject");
+            System.out.println("[ 16 ] Display Lowest Marks For a Subject");
+            System.out.println("[ 17 ] Delete Subject Of a Student");
             System.out.println("[ 18 ] Display All Subjects Details");
-            System.out.println("[ 19 ] Display A Subject Details");
+            System.out.println("[ 19 ] Display a Subject Details");
             System.out.println("[ 20 ] Display AVL Tree Diagram");
             System.out.println("[ 21 ] Exit");
             System.out.println("");
@@ -721,7 +721,7 @@ public class PDSA_CW {
                     System.out.println("How many new students do you want to add: ");
                     int c1 = -1;
                     while (c1 < 0) {
-                        System.out.print("Enter a positive number: ");
+                        System.out.print("Enter a number(positive): ");
                         if (scanner.hasNextInt()) {
                             c1 = scanner.nextInt();
                             if (c1 < 0) {
