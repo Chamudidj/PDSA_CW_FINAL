@@ -954,7 +954,7 @@ public class PDSA_CW {
                     case 7:
                     int student_admission_no = -1;
                     while (student_admission_no < 0) {
-                        System.out.print("Enter Admission Number of the Student: ");
+                        System.out.println("Enter Admission Number of the Student: ");
                         if (scanner.hasNextInt()) {
                             student_admission_no = scanner.nextInt();
                             if (student_admission_no < 0) {
@@ -1263,7 +1263,7 @@ public class PDSA_CW {
                     case 17:
                     int stu_admission_no = -1;
                     while (stu_admission_no < 0) {
-                        System.out.println("Enter Admission Number of the Student: ");
+                        System.out.print("Enter Admission Number of the Student: ");
                         if (scanner.hasNextInt()) {
                             stu_admission_no = scanner.nextInt();
                             if (stu_admission_no < 0) {
