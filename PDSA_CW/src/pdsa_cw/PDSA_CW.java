@@ -523,6 +523,35 @@ public void displayLowestMarksForSubject(AVLNode node, String subject, String[] 
         displayLowestMarksForSubject(node.right, subject, result);
     }
 }
+
+public void deleteSubjectForStudent(int admission_no, String subject) 
+{
+    Node student_node = search(admission_no);
+    if (student_node != null) 
+    {
+        SubjectNode current = student_node.subjects_head;
+        while (current != null) 
+        {
+            if (current.subject.equals(subject)) 
+            {
+                if (current.prev != null)
+                    current.prev.next = current.next;
+                if (current.next != null)
+                    current.next.prev = current.prev;
+                if (current == student_node.subjects_head)
+                    student_node.subjects_head = current.next;
+                if (current == student_node.subjects_tail)
+                    student_node.subjects_tail = current.prev;
+                System.out.println("Subject '" + subject + "' deleted successfully for student with admission number " + admission_no + ".");
+                return;
+            }
+            current = current.next;
+        }
+        System.out.println("Subject " + subject + " not found for student with admission number " + admission_no + ".");
+    } else {
+        System.out.println("Student with admission number " + admission_no + " not found.");
+    }
+}
     
     public void displayAVLTree() 
     {
@@ -1102,6 +1131,45 @@ public class PDSA_CW {
 
                     String lowest_marks_subject = subs[lowest_marks_subject_no - 1];
                     studentsTree.displayLowestMarksForSubject(lowest_marks_subject);
+                    break;
+                    
+                    case 17:
+                    int stu_admission_no = -1;
+                    while (stu_admission_no < 0) {
+                        System.out.println("Enter Admission Number of the Student: ");
+                        if (scanner.hasNextInt()) {
+                            stu_admission_no = scanner.nextInt();
+                            if (stu_admission_no < 0) {
+                                System.out.println("Please enter a positive number for Admission Number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for Admission Number.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+
+                    int subject_to_delete_no = -1;
+                    while (subject_to_delete_no < 0 || subject_to_delete_no > c) {
+                        System.out.println("Enter the subject to delete along with its marks: ");
+                        for (int i = 0; i < c; i++) {
+                            System.out.println("Subject " + (i + 1) + " -> " + subs[i]);
+                        }
+                        System.out.print("Enter Subject No: ");
+                        if (scanner.hasNextInt()) {
+                            subject_to_delete_no = scanner.nextInt();
+                            if (subject_to_delete_no < 0 || subject_to_delete_no > c) {
+                                System.out.println("Please enter a valid subject number.");
+                            }
+                        } else {
+                            System.out.println("Please enter a valid integer number for Subject No.");
+                            scanner.next(); // Clear the invalid input
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
+
+                    String subject_to_delete = subs[subject_to_delete_no - 1];
+                    studentsTree.deleteSubjectForStudent(stu_admission_no, subject_to_delete);
                     break;
                     
                 case 21:
