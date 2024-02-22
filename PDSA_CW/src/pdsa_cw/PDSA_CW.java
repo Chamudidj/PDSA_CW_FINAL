@@ -140,9 +140,17 @@ class AVLTree {  //AVL Tree Class
     }
     
     //Method to display Students
-    public void display() 
+    /*public void display() 
     {
         display(root);
+    }*/
+    //Method to display Students
+    public void display() {
+    if (root == null) {
+        System.out.println("No students in the system.");
+    } else {
+        display(root);
+    }
     }
 
     public void display(AVLNode node) 
@@ -570,7 +578,7 @@ public void deleteSubjectForStudent(int admission_no, String subject)
     }
 }
 
-// Method to display all subjects with the students who study it along with marks
+/*// Method to display all subjects with the students who study it along with marks
 public void displaySubjectsAndMarks() 
 {
     boolean students_found = displaySubjectsAndMarks(root);
@@ -603,6 +611,42 @@ public boolean displaySubjectsAndMarks(AVLNode node)
         }
     }
     return students_found;
+}*/
+
+// Method to display all subjects with the students who study it along with marks
+public void displaySubjectsAndMarks() {
+    if (root == null) {
+        System.out.println("No students found in the system.");
+    } else {
+        boolean studentsFound = displaySubjectsAndMarks(root);
+        if (!studentsFound) {
+            System.out.println("No students found for any subject.");
+        }
+    }
+}
+
+public boolean displaySubjectsAndMarks(AVLNode node) {
+    boolean studentsFound = false;
+    boolean leftStudents = false;
+    boolean rightStudents = false;
+
+    if (node != null) {
+        leftStudents = displaySubjectsAndMarks(node.left);
+        
+        if (node.student != null && node.student.subjects_head != null) {
+            studentsFound = true;
+            System.out.println("Student: " + node.student.name + ", Admission Number: " + node.student.admission_no);
+            displaySubjects(node.student.subjects_head);
+            System.out.println("");
+        } else if (node.student != null) {
+            System.out.println("Student: " + node.student.name + ", Admission Number: " + node.student.admission_no + " - This student does not have any subjects.");
+            System.out.println("");
+        }
+        
+        rightStudents = displaySubjectsAndMarks(node.right);
+    }
+
+    return studentsFound || leftStudents || rightStudents;
 }
 
 //Method to display a particular subject details
@@ -638,10 +682,23 @@ public boolean displaySubjectDetails(AVLNode node, String subject) {
 }
     
 //Method to display AVL Tree
+    /*public void displayAVLTree() 
+    {
+        displayAVLTree(root, 0);
+    }*/
+
+//Method to display AVL Tree
     public void displayAVLTree() 
+{
+    if (root == null) 
+    {
+        System.out.println("The AVL tree is empty.");
+    } 
+    else 
     {
         displayAVLTree(root, 0);
     }
+}
 
     public void displayAVLTree(AVLNode node, int level) 
     {
@@ -811,7 +868,7 @@ public class PDSA_CW {
                                 c1 = -1; // Reset c1 to re-enter the number of students
                             } else {
                                 System.out.println("Invalid input. Please enter '1' to confirm or '0' to re-enter the number of students.");
-                            }
+                            } 
                         }
 
                         for (int i = 0; i < c1; i++) {
