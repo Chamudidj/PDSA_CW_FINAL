@@ -804,13 +804,29 @@ public class PDSA_CW {
                             }
                             System.out.println("You want to add " + c1+" new students.");
                             System.out.println("To confirm, enter '1'. To re-enter the number of students, enter '0'.");
-                            int confirmation = scanner.nextInt();
+                            
+                            /*int confirmation = scanner.nextInt();
                             if (confirmation == 1) {
                                 confirmed = true;
                             } else if (confirmation == 0) {
                                 c1 = -1; // Reset c1 to re-enter the number of students
                             } else {
                                 System.out.println("Invalid input. Please enter '1' to confirm or '0' to re-enter the number of students.");
+                            }*/
+                            
+                            if (scanner.hasNextInt()) {
+                        int confirmation = scanner.nextInt();
+                        if (confirmation == 1) {
+                            confirmed = true;
+                        } else if (confirmation == 0) {
+                            c1 = -1; // Reset c1 to re-enter the number of students
+                        } else {
+                            System.out.println("Invalid input. Please enter '1' to confirm or '0' to re-enter the number of students.");
+                        }
+                    } 
+                            else {
+                        System.out.println("Please enter a valid integer number.");
+                        scanner.next(); // Clear the invalid input
                             }
                         }
 
@@ -1353,7 +1369,7 @@ public class PDSA_CW {
                     studentsTree.displayAVLTree();
                     break;
                     
-                case 21: // exit from the application
+                case 21: // Exit from the application
                     running = false;
                     System.out.println("....EXITING STUDENT MANAGEMENT SYSTEM. GOODBYE!....");
                     break;
