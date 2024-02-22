@@ -766,7 +766,7 @@ public class PDSA_CW {
                     }
                     break;*/
                 
-                case 1:
+                case 1: // Add new student Admission number and name
                         //System.out.println("How many new students do you want to add: ");
                         int c1 = -1;
                         boolean confirmed = false;
@@ -827,11 +827,11 @@ public class PDSA_CW {
 
                             studentsTree.insert(admission_number, name);
             }
-                case 2:
+                case 2: // Display all student details
                     studentsTree.display();
                     break;
                     
-                case 3:
+                case 3: // Search a student from admission number
                     int search_admission_number = -1;
                     while (search_admission_number < 0) {
                         System.out.print("Enter Admission Number to search: ");
@@ -856,7 +856,7 @@ public class PDSA_CW {
                     }
                     break;
                     
-                case 4:
+                case 4: // Delete a student
                     int delete_admission_no = -1;
                     while (delete_admission_no < 0) {
                         System.out.print("Enter Admission Number to delete: ");
@@ -874,7 +874,7 @@ public class PDSA_CW {
                     studentsTree.delete(delete_admission_no);
                     break;
                     
-                    case 5:
+                    case 5: // Update a student name
                         int update_admission_no = -1;
                         while (update_admission_no < 0) {
                             System.out.print("Enter Admission Number to update: ");
@@ -907,7 +907,7 @@ public class PDSA_CW {
                         studentsTree.update(update_admission_no, new_name);
                         break;
                         
-                case 6:
+                case 6: //Add new subject to the system
                         System.out.println("Subjects Available Already: ");
 
                         int count = 0;
@@ -951,7 +951,7 @@ public class PDSA_CW {
                         }
                         break;        
                         
-                    case 7:
+                    case 7: // Add mark for student for a subject
                     int student_admission_no = -1;
                     while (student_admission_no < 0) {
                         System.out.println("Enter Admission Number of the Student: ");
@@ -1028,7 +1028,7 @@ public class PDSA_CW {
                     }
                     break;
                     
-                    case 8:
+                    case 8: // Update mark of a student for a subject
                     int stu_ad_no = -1;
                     while (stu_ad_no < 0) {
                         System.out.print("Enter Admission Number of the Student: ");
@@ -1080,7 +1080,7 @@ public class PDSA_CW {
                     studentsTree.updateMarks(stu_ad_no, subject, new_marks);
                     break;
                     
-                    case 9:
+                    case 9: // Calculate total marks of a student
                     int sum_admission_number = -1;
                     while (sum_admission_number < 0) {
                         System.out.print("Enter Admission Number to calculate sum marks: ");
@@ -1102,7 +1102,7 @@ public class PDSA_CW {
                     }
                     break;
                     
-                    case 10:
+                    case 10: // Calculate average marks of a student
                     int avg_admission_number = -1;
                     while (avg_admission_number < 0) {
                         System.out.print("Enter Admission Number to calculate average marks: ");
@@ -1124,7 +1124,7 @@ public class PDSA_CW {
                     }
                     break;
                     
-                case 11:
+                case 11: // Calculate total marks for a subject
                     int subject_total_no = -1;
                     while (subject_total_no < 0 || subject_total_no > c) {
                         System.out.println("Enter Subject no to calculate total marks: ");
@@ -1149,7 +1149,7 @@ public class PDSA_CW {
                     System.out.println("Total Marks for Subject '" + total_marks_subject + "': " + total_marks);
                     break;
                     
-                case 12:
+                case 12: // Calculate average marks for a subject
                     int subject_avg_no = -1;
                     while (subject_avg_no < 0 || subject_avg_no > c) {
                         System.out.println("Enter Subject no to calculate average marks: ");
@@ -1174,7 +1174,7 @@ public class PDSA_CW {
                     System.out.println("Average Marks for Subject '" + average_marks_subject + "': " + avg_marks);
                     break;
                     
-                    case 13:
+                    case 13: // Display highest marks of a student
                     int highest_marks_admission_number = -1;
                     while (highest_marks_admission_number < 0) {
                         System.out.print("Enter Admission Number to display highest marks for student: ");
@@ -1193,7 +1193,7 @@ public class PDSA_CW {
                     studentsTree.displayHighestMarksForStudent(highest_marks_admission_number);
                     break;
                     
-                    case 14:
+                    case 14: // Display lowest marks of a student
                     int lowest_marks_admission_number = -1;
                     while (lowest_marks_admission_number < 0) {
                         System.out.print("Enter Admission Number to display lowest marks for student: ");
@@ -1212,7 +1212,7 @@ public class PDSA_CW {
                     studentsTree.displayLowestMarksForStudent(lowest_marks_admission_number);
                     break;
                     
-                case 15:
+                case 15: // Display highest marks of a subject
                     int highest_marks_subject_no = -1;
                     while (highest_marks_subject_no < 0 || highest_marks_subject_no > c) {
                         System.out.println("Enter Subject no to display highest marks: ");
@@ -1236,7 +1236,7 @@ public class PDSA_CW {
                     studentsTree.displayHighestMarksForSubject(highest_marks_subject);
                     break;
                     
-                case 16:
+                case 16: // Display lowest marks for a subject
                     int lowest_marks_subject_no = -1;
                     while (lowest_marks_subject_no < 0 || lowest_marks_subject_no > c) {
                         System.out.println("Enter Subject no to display lowest marks: ");
@@ -1260,7 +1260,7 @@ public class PDSA_CW {
                     studentsTree.displayLowestMarksForSubject(lowest_marks_subject);
                     break;
                     
-                    case 17:
+                    case 17: // Delete subject of a student
                     int stu_admission_no = -1;
                     while (stu_admission_no < 0) {
                         System.out.print("Enter Admission Number of the Student: ");
@@ -1299,12 +1299,12 @@ public class PDSA_CW {
                     studentsTree.deleteSubjectForStudent(stu_admission_no, subject_to_delete);
                     break;
                     
-                    case 18:
+                    case 18: // Display all subject details with students
                     System.out.println("All Subjects with Students and Marks:");
                     studentsTree.displaySubjectsAndMarks();
                     break;
                     
-                    case 19:
+                    case 19: // Display a perticular subject details
                     int subject_no = -1;
                     while (subject_no < 0 || subject_no > c) {
                         System.out.println("Enter the subject number to display details:");
@@ -1329,12 +1329,12 @@ public class PDSA_CW {
                     studentsTree.displaySubjectDetails(subject_to_display);
                     break;
                     
-                    case 20:
+                    case 20: // Display AVL tree diagram
                     System.out.println("AVL Tree Diagram:");
                     studentsTree.displayAVLTree();
                     break;
                     
-                case 21:
+                case 21: // exit from the application
                     running = false;
                     System.out.println("....EXITING STUDENT MANAGEMENT SYSTEM. GOODBYE!....");
                     break;
