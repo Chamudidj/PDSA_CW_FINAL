@@ -1,7 +1,7 @@
 package pdsa_cw;
 
 import java.util.Scanner;
-import java.util.regex.*;
+import java.util.regex.*; //For validation parts
 
 class SubjectNode { //Subject Node Class
     String subject;
@@ -31,7 +31,7 @@ class Node //Student Node Class
     }
 }
 
-class AVLNode 
+class AVLNode  //AVL Node Class
 {
     Node student;
     int height;
@@ -45,7 +45,7 @@ class AVLNode
     }
 }
 
-class AVLTree {
+class AVLTree {  //AVL Tree Class
     AVLNode root;
 
     AVLTree() {
@@ -95,6 +95,7 @@ class AVLTree {
         return y;
     }
     
+    //Method to add new students to the  system
     public AVLNode insert(AVLNode node, Node student) {
         if (node == null)
             return new AVLNode(student);
@@ -138,6 +139,7 @@ class AVLTree {
         root = insert(root, newNode);
     }
     
+    //Method to display Students
     public void display() 
     {
         display(root);
@@ -154,6 +156,7 @@ class AVLTree {
         }
     }
     
+    //Method to display Subjects
     public void displaySubjects(SubjectNode subjectsHead) {
         SubjectNode current = subjectsHead;
         while (current != null) {
@@ -162,6 +165,7 @@ class AVLTree {
         }
     }
     
+    //Method to search student
     public Node search(int admission_no) {
         return search(root, admission_no);
     }
@@ -185,6 +189,7 @@ class AVLTree {
         return current;
     }
     
+    //Method to delete student
     public AVLNode deleteNode(AVLNode root, int admission_no) {
         if (root == null)
             return root;
@@ -259,6 +264,7 @@ class AVLTree {
         return findStudent(node.left, admission_no) || findStudent(node.right, admission_no);
     }
     
+    //Method to update student
     public void update(int admission_no, String new_name) {
         Node student = search(admission_no);
         if (student != null) {
@@ -269,6 +275,7 @@ class AVLTree {
         }
     }
 
+    //Method to add marks
     public void addMarks(int admission_no, String subject, int marks) {
     Node student_node = search(admission_no);
     if (student_node != null) {
@@ -297,7 +304,8 @@ class AVLTree {
         System.out.println("Student with admission number " + admission_no + " not found.");
     }
 }
-    
+   
+    //Method to update marks
     public void updateMarks(int admission_no, String subject, int new_marks) {
         Node student_node = search(admission_no);
         if (student_node != null) {
@@ -316,6 +324,7 @@ class AVLTree {
         }
     }
     
+    //Method to calculate total marks
     public int sumMarks(int admission_no) {
     Node student_node = search(admission_no);
     if (student_node != null) {
@@ -336,6 +345,7 @@ class AVLTree {
     return -1;
 }
     
+    //Method to calculate average marks
     public double averageMarks(int admission_no) {
     Node student_node = search(admission_no);
     if (student_node != null) {
@@ -359,6 +369,7 @@ class AVLTree {
     return -1.0;
 }
     
+    //Method to calculate total marks for a subject
     public int total_marksForSubject(String subject) {
         return total_marksForSubject(root, subject);
     }
@@ -384,6 +395,7 @@ class AVLTree {
         return total_marks;
     }
     
+    //Method to calculate average of a subject
     public double averageMarksForSubject(String subject) {
     int[] result = new int[2]; // Index 0 for total marks, Index 1 for total students
     averageMarksForSubject(root, subject, result);
@@ -412,6 +424,7 @@ public void averageMarksForSubject(AVLNode node, String subject, int[] result) {
     }
 }
 
+//Method to display highest mark of a student
 public void displayHighestMarksForStudent(int admission_no) 
     {
     Node student_node = search(admission_no);
@@ -436,6 +449,7 @@ public void displayHighestMarksForStudent(int admission_no)
     }
 }
 
+//Method to display lowest mark of a student
 public void displayLowestMarksForStudent(int admission_no) 
     {
     Node student_node = search(admission_no);
@@ -464,6 +478,7 @@ public void displayLowestMarksForStudent(int admission_no)
     }
 }
 
+//Method to display highest mark for a subject
 public void displayHighestMarksForSubject(String subject) {
     String[] result = new String[2]; // Index 0 for student name, Index 1 for highest marks
     result[1] = String.valueOf(Integer.MIN_VALUE); // Initialize to minimum value
@@ -494,6 +509,7 @@ public void displayHighestMarksForSubject(AVLNode node, String subject, String[]
     }
 }
 
+//Method to display lowest mark for a subject
 public void displayLowestMarksForSubject(String subject) {
     String[] result = new String[2]; // Index 0 for student name, Index 1 for lowest marks
     result[1] = String.valueOf(Integer.MAX_VALUE); // Initialize to maximum value
@@ -524,6 +540,7 @@ public void displayLowestMarksForSubject(AVLNode node, String subject, String[] 
     }
 }
 
+//Method to delete a subject from a student
 public void deleteSubjectForStudent(int admission_no, String subject) 
 {
     Node student_node = search(admission_no);
@@ -588,6 +605,7 @@ public boolean displaySubjectsAndMarks(AVLNode node)
     return students_found;
 }
 
+//Method to display a particular subject details
 public void displaySubjectDetails(String subject) 
 {
     boolean found = displaySubjectDetails(root, subject);
@@ -619,6 +637,7 @@ public boolean displaySubjectDetails(AVLNode node, String subject) {
     return found;
 }
     
+//Method to display AVL Tree
     public void displayAVLTree() 
     {
         displayAVLTree(root, 0);
@@ -683,7 +702,7 @@ public class PDSA_CW {
             System.out.println("[ 4 ]  Delete a Student");
             System.out.println("[ 5 ]  Update a Student");
             System.out.println("[ 6 ]  Add a New Subject To The System");
-            System.out.println("[ 7 ]  Add Marks For Student To a Subject");
+            System.out.println("[ 7 ]  Add Marks For a Student");
             System.out.println("[ 8 ]  Update Mark Of a Student");
             System.out.println("[ 9 ]  Calculate Total Marks For a Student");
             System.out.println("[ 10 ] Calculate Average Marks For a Student");
@@ -694,7 +713,7 @@ public class PDSA_CW {
             System.out.println("[ 15 ] Display Highest Marks For a Subject");
             System.out.println("[ 16 ] Display Lowest Marks For a Subject");
             System.out.println("[ 17 ] Delete Subject Of a Student");
-            System.out.println("[ 18 ] Display All Subjects Details");
+            System.out.println("[ 18 ] Display All Students & Subjects Details");
             System.out.println("[ 19 ] Display a Subject Details");
             System.out.println("[ 20 ] Display AVL Tree Diagram");
             System.out.println("[ 21 ] Exit");
@@ -824,7 +843,7 @@ public class PDSA_CW {
                                     System.out.println("Please enter a valid name with no special characters or numbers.");
                                 }
                             }
-
+                            System.out.println("");
                             studentsTree.insert(admission_number, name);
             }
                 case 2: // Display all student details
